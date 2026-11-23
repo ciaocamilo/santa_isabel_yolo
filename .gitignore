@@ -1,0 +1,46 @@
+# Datos de uso local: nunca al repositorio ni al despliegue
+/data/datasets/
+/data/
+
+# Corridas intermedias, pesos base y exportaciones
+/runs/
+*.cache
+
+# Paquetes temporales (un paquete publicado sí se versiona: models/<id>/)
+/models/_tmp_*/
+
+# Ajustes del equipo y secretos
+/configs/local.toml
+.env
+.env.*
+*.key
+credentials*.json
+.streamlit/secrets.toml
+
+# Entornos y cachés
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+
+# Caché de Earth Engine y descargas del productor
+cache_escenas/
+salida/
+salida_prueba/
+
+# Sistema y editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Archivos SDD
+SDD_04_Santa_Isabel_YOLO_Streamlit.md
+
+# Carpeta de informes
+reports/

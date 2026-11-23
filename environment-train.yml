@@ -1,0 +1,56 @@
+# Entorno de entrenamiento «yolo_gee» (Windows 11, NVIDIA RTX, driver 621.14).
+#
+# En el equipo original se creó como réplica del entorno conda «gee» (Python 3.11.15, conda-forge):
+#
+#   conda create -n yolo_gee --clone gee
+#
+# Con conda 26.1.1 el clon falla por un paquete con época en la versión (x264-1!164…:
+# SpecNotFoundInPackageCache). Receta equivalente usada, con los mismos builds:
+#
+#   conda list -n gee --explicit > entorno/gee-conda-explicit-win64.txt
+#   mamba create -n yolo_gee --file entorno/gee-conda-explicit-win64.txt
+#   conda activate yolo_gee
+#   python -m pip install torch==2.15.0 torchvision==0.29.2 --index-url https://download.pytorch.org/whl/cu132
+#   python -m pip install -r entorno/yolo_gee-pip.txt
+#   python -m pip install -e .
+#   python tools/configurar_entorno.py      # capa secuencial de MKL (.pth) y kernel «Python (yolo_gee)»
+#   python -m pip check
+#
+# Este archivo es la receta portable para reconstruirlo en otro equipo sin partir de «gee»:
+#
+#   conda env create -f environment-train.yml && conda activate yolo_gee && python tools/configurar_entorno.py
+#
+# El índice cu132 es el del selector oficial de PyTorch (estable 2.15.0, CUDA 13.2). En un equipo sin GPU
+# NVIDIA sustituya el índice por https://download.pytorch.org/whl/cpu (solo auditoría, pruebas y app).
+name: yolo_gee
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - rasterio=1.4.4
+  - numpy=2.4.6
+  - pandas=3.0.3
+  - scikit-learn=1.9.0
+  - matplotlib=3.11.0
+  - pillow=12.3.0
+  - pyyaml=6.0.3
+  - ipykernel=6.29.5
+  - nbconvert=7.17.1
+  - nbformat=5.10.4
+  - psutil=7.2.2
+  - earthengine-api=1.7.35
+  - geemap=0.37.1
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu132
+      - torch==2.15.0+cu132
+      - torchvision==0.29.2+cu132
+      - ultralytics==8.4.216
+      - opencv-python==5.1.0.95
+      - scipy==1.17.1
+      - onnx==1.23.2
+      - onnxruntime==1.32.0
+      - onnxslim==0.1.99
+      - streamlit==1.67.0
+      - pytest==9.2.0
+      - -e .

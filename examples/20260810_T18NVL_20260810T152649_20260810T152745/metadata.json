@@ -1,0 +1,120 @@
+{
+ "estado": "completa",
+ "nombre_escena": "20260810_T18NVL_20260810T152649_20260810T152745",
+ "clave": "20260810_T18NVL_20260810T152649_20260810T152745",
+ "perfil": "L2A",
+ "nivel": "L2A reflectancia de superficie",
+ "id_asset": "COPERNICUS/S2_SR_HARMONIZED/20260810T152649_20260810T152745_T18NVL",
+ "system_index": "20260810T152649_20260810T152745_T18NVL",
+ "coleccion": "COPERNICUS/S2_SR_HARMONIZED",
+ "metodo_qa": "SCL clases útiles 4,5,6,11",
+ "coleccion_qa": "COPERNICUS/S2_SR_HARMONIZED",
+ "satelite": "Sentinel-2B",
+ "tesela": "18NVL",
+ "orbita_relativa": 25,
+ "baseline": "05.12",
+ "nube_granulo_pct": 3.659749,
+ "adquisicion_utc": "2026-08-10T15:31:46Z",
+ "grupo_temporal": "santa_isabel_54c3fecf1b_20260810",
+ "malla": {
+  "crs": "EPSG:32618",
+  "transform": [
+   10.0,
+   0.0,
+   455970.0,
+   0.0,
+   -10.0,
+   533560.0
+  ],
+  "ancho": 545,
+  "alto": 598,
+  "resolucion_m": 10.0,
+  "limites": [
+   455970.0,
+   527580.0,
+   461420.0,
+   533560.0
+  ]
+ },
+ "orden_canales": {
+  "rgb": [
+   "R=B4",
+   "G=B3",
+   "B=B2"
+  ],
+  "espectral": [
+   "R=NDSI",
+   "G=NDVI",
+   "B=B4"
+  ]
+ },
+ "atribucion": "Contiene datos modificados de Copernicus Sentinel-2 (2026) procesados mediante Google Earth Engine (COPERNICUS/S2_SR_HARMONIZED).",
+ "receta": {
+  "version": "2.0",
+  "huella": "a9df78f0ba93",
+  "png_rgb": "R=B4,G=B3,B=B2; round(255*clip(refl/0.60,0,1))",
+  "calidad": {
+   "scl_admitidas": [
+    4,
+    5,
+    6,
+    11
+   ],
+   "scl_excluidas": [
+    0,
+    1,
+    2,
+    3,
+    7,
+    8,
+    9,
+    10
+   ],
+   "codigos": {
+    "0": "exterior o sin observación completa",
+    "1": "observado y no visible",
+    "2": "observado y visible"
+   }
+  }
+ },
+ "porcentajes": {
+  "local_10m": {
+   "cobertura_pct": 100.0,
+   "util_pct": 97.806,
+   "soporte_png_pct": 100.0,
+   "saturacion_rgb_pct": 0.002,
+   "saturacion_por_canal_pct": {
+    "R": 0.0,
+    "G": 0.001,
+    "B": 0.002
+   }
+  }
+ },
+ "rutas": {
+  "rgb": "rgb/20260810_T18NVL_20260810T152649_20260810T152745.png",
+  "calidad": "calidad.tif",
+  "soporte_png": "soporte_png.tif"
+ },
+ "archivos": {
+  "rgb/20260810_T18NVL_20260810T152649_20260810T152745.png": {
+   "sha256": "c0fc5bf114d98f7f690e269d15d3676608d83af87f4579ab5ff8cf57205b4553",
+   "bytes": 443759
+  },
+  "calidad.tif": {
+   "sha256": "1aa0f9c613ccc81d049253877768375c43dd3373db73ffa5cd8edcccb55fdc0c",
+   "bytes": 3931
+  },
+  "soporte_png.tif": {
+   "sha256": "67a4155e10b0223b1ee872f21202ebe0c4a919dd2807d08b88ed6940d228ee6e",
+   "bytes": 2169
+  }
+ },
+ "origen_ejemplo": {
+  "dataset": "v0003",
+  "mes": "2026-08",
+  "split": "test",
+  "etiqueta_del_dataset": "automatico_ndsi (sin revisión humana)",
+  "copiado_de": "caché del generador mensual (SDD 03), receta a9df78f0ba93",
+  "licencia": "Datos Copernicus Sentinel-2: uso libre, completo y abierto con atribución (Reglamento UE 1159/2013)."
+ }
+}

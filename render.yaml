@@ -1,0 +1,23 @@
+# Definición del servicio web en Render (https://render.com/docs/blueprint-spec).
+# No asume cuenta, plan ni URL: elija el plan al crear el servicio desde este repositorio.
+services:
+  - type: web
+    name: santa-isabel-nieve
+    runtime: python
+    # Instala el perfil ONNX (sin torch ni Ultralytics) y prepara el paquete inmutable: verifica los hashes
+    # de models/<ACTIVO>/ y ejecuta una inferencia real de las dos escenas de ejemplo. Si algo no coincide,
+    # el despliegue falla en la construcción y no en la primera visita.
+    buildCommand: >-
+      python -m pip install --upgrade pip &&
+      python -m pip install -r requirements-app.txt &&
+      python tools/verificar_paquete.py --backends onnx
+    startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port "$PORT" --server.headless true
+    healthCheckPath: /_stcore/health
+    autoDeploy: false
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.15
+      - key: SANTA_ISABEL_BACKEND
+        value: onnx
+      - key: OMP_NUM_THREADS
+        value: "2"

@@ -1,0 +1,8 @@
+# El paquete del modelo y los ejemplos se verifican por SHA-256: Git no debe convertir finales de línea.
+models/** -text
+examples/** -text
+*.pt binary
+*.onnx binary
+*.tif binary
+*.png binary
+*.ipynb -text

@@ -1,0 +1,16 @@
+# Paquetes pip del entorno «gee» replicados en «yolo_gee» (torch y torchvision se instalan aparte desde cu132)
+# más los que añade este proyecto.
+ultralytics==8.4.216
+ultralytics-thop==2.2.5
+ultralytics-platform==0.1.121
+opencv-python==5.1.0.95
+scipy==1.17.1
+polars==2.1.0
+pytest==9.2.0
+nvidia-ml-py==13.615.71
+fsspec==2026.9.0
+# Añadidos por santa_isabel_yolo
+onnx==1.23.2
+onnxruntime==1.32.0
+onnxslim==0.1.99
+streamlit==1.67.0

@@ -1,0 +1,97 @@
+# Configuración del experimento · SDD 04 · Nevado Santa Isabel
+# Las rutas relativas se resuelven desde la raíz del proyecto (carpeta que contiene configs/experimento.toml),
+# sin depender del directorio de trabajo de Jupyter o Streamlit.
+# Ajustes propios del equipo (p. ej. la caché del productor) van en configs/local.toml, que no se versiona.
+
+[proyecto]
+nombre = "santa_isabel_yolo"
+semilla = 42
+
+[dataset]
+version = "v0003"
+raiz = "data/datasets"
+variante = "rgb"
+variantes = ["rgb", "espectral"]
+# Caché por escena del generador mensual (opcional): <raiz_cache>/<id_aoi>/<perfil>/<clave>/<receta>/
+# También se acepta la variable de entorno SANTA_ISABEL_CACHE.
+raiz_cache = ""
+clase_id = 0
+clase_nombre = "nieve_hielo_visible"
+ancho = 545
+alto = 598
+
+[aoi]
+nombre = "santa_isabel"
+caja_wgs84 = [-75.397, 4.773, -75.348, 4.827]
+crs = "EPSG:32618"
+resolucion_m = 10.0
+# Malla del productor (a, b, c, d, e, f): x = a·col + b·fila + c ; y = d·col + e·fila + f
+transform = [10.0, 0.0, 455970.0, 0.0, -10.0, 533560.0]
+ancho = 545
+alto = 598
+
+[entrenamiento]
+modelo_base = "yolo26n-seg.pt"
+device = 0
+workers = 0
+epocas_integracion = 1
+epocas = 50
+paciencia = 10
+lote = 2
+imgsz = 1024
+mask_ratio = 4
+overlap_mask = true
+# Aumentos: sin mosaic, mixup ni jitter HSV (alterarían el significado radiométrico). Solo geometría,
+# que Ultralytics aplica de forma idéntica a imagen y polígonos.
+mosaic = 0.0
+mixup = 0.0
+copy_paste = 0.0
+hsv_h = 0.0
+hsv_s = 0.0
+hsv_v = 0.0
+degrees = 0.0
+translate = 0.1
+scale = 0.25
+fliplr = 0.5
+flipud = 0.5
+
+[entrenamiento.ajustado]
+# Corrida ajustada, definida tras medir la configuración inicial del SDD (50 épocas, paciencia 10):
+# · Ultralytics acumula gradientes hasta un lote nominal nbs = 64; con lote 2 son 32 lotes por paso del
+#   optimizador y, con 9 lotes por época, un paso cada ~3,5 épocas. Con nbs = lote hay un paso por lote.
+# · La parada temprana usa el mAP de instancia de validación (4 escenas, 7 instancias), que es ruido: la
+#   corrida inicial se detuvo en la época 12 con mAP ≈ 0. Se desactiva (paciencia 0) y los checkpoints
+#   guardados cada `guardar_cada` épocas se comparan por IoU de cobertura en validación.
+epocas = 150
+paciencia = 0
+nbs = 2
+guardar_cada = 10
+
+[inferencia]
+# Umbral de propuestas bajo y positivo: una sola inferencia por imagen conserva confianza y máscara
+# de cada instancia; la puntuación por píxel es el máximo de esas confianzas (0 fuera de propuestas).
+umbral_propuestas = 0.01
+umbral_operativo_inicial = 0.25
+iou_nms = 0.7
+max_det = 300
+imgsz_candidatos = [640, 1024, 1280]
+# Imágenes mayores que la tesela se analizan por ventanas a escala nativa y se unen por máximo de puntuación.
+tesela_px = 640
+solape_px = 96
+
+[comparacion]
+# Diferencia circular de meses a partir de la cual se advierte «épocas del año distintas».
+meses_tolerancia = 1
+
+[limites]
+# Límites publicados de carga (probados en local; ver README para las mediciones).
+max_bytes = 60000000
+max_pixeles = 4000000
+max_bandas = 16
+zip_max_archivos = 40
+zip_max_bytes_expandido = 200000000
+
+[app]
+# Paquete activo: nombre de carpeta dentro de models/ (o variable SANTA_ISABEL_PAQUETE). Vacío = models/ACTIVO.
+paquete = ""
+ejemplos = "examples"

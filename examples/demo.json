@@ -1,0 +1,8 @@
+{
+ "par": [
+  "20240815_T18NVL_20240815T152651_20240815T152653",
+  "20260810_T18NVL_20260810T152649_20260810T152745"
+ ],
+ "dataset": "v0003",
+ "nota": "Par de la demostración de dos fechas (inicial, final). Escenas reales Sentinel-2 L2A del Nevado Santa Isabel descargadas con Google Earth Engine por el generador mensual."
+}

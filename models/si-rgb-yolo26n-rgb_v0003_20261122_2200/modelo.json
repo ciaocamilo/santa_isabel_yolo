@@ -1,0 +1,135 @@
+{
+ "id": "si-rgb-yolo26n-rgb_v0003_20261122_2200",
+ "variante": "rgb",
+ "receta": {
+  "version": "2.0",
+  "compatibles": [
+   "1.0",
+   "2.0"
+  ],
+  "codificacion": "R=B4,G=B3,B=B2; round(255*clip(refl/0.60,0,1)); fuera de soporte = 0",
+  "huellas_productor": [
+   "a9df78f0ba93",
+   "bbe1b88c9f0a"
+  ]
+ },
+ "entrada": {
+  "imgsz": 1024,
+  "alineacion": "letterbox centrado a imgsz×imgsz con relleno 114, sin rectángulo mínimo (rect=false); se deshace antes de medir",
+  "canales": "RGB uint8 de la receta; Ultralytics recibe el arreglo en BGR; ONNX recibe RGB CHW/255",
+  "tesela_px": 640,
+  "solape_px": 96
+ },
+ "posproceso": {
+  "umbral_propuestas": 0.01,
+  "umbral_operativo": 0.36628111720085144,
+  "iou_nms": 0.7,
+  "max_det": 300,
+  "mascaras": "retina_masks (resolución original)",
+  "puntuacion": "máximo de las confianzas de las instancias cuya máscara cubre el píxel; 0 fuera de propuestas (ranking con empates, no probabilidad calibrada)",
+  "mascara_final": "unión de instancias con confianza ≥ umbral operativo"
+ },
+ "backends": {
+  "ultralytics": {
+   "archivo": "pesos/best.pt",
+   "ultralytics": "8.4.216",
+   "torch": "2.15.0+cu132",
+   "sha256": "65d6984adf4028f2edbad71a022492587050549c4b4ee4fa3da8c92a1c78365b"
+  },
+  "onnx": {
+   "archivo": "pesos/best.onnx",
+   "opset": 18,
+   "onnx": "1.23.2",
+   "onnxruntime": "1.32.0",
+   "imgsz_fijo": 1024,
+   "sha256": "f133a5faf11eac602dfb488ad2a2e091268215d65cd26860ed4dc5b1c097ae17"
+  }
+ },
+ "backend_referencia": "ultralytics",
+ "backend_servicio": "onnx",
+ "dataset": {
+  "version": "v0003",
+  "huella_contenido": "ef44e9dcf906fd08",
+  "id_ejecucion": "20261123T012015Z_440a11",
+  "id_aoi": "santa_isabel_54c3fecf1b",
+  "creado_utc": "2026-11-23T01:22:01Z",
+  "sha256_manifiesto": "6523af5a479e30602a9d41f343c1a3ebd43689c3d9b0da176bc2da45d49d6b23",
+  "escenas": {
+   "train": 18,
+   "val": 4,
+   "test": 6
+  },
+  "instancias": {
+   "train": 273,
+   "val": 7,
+   "test": 41
+  },
+  "origen_referencia": [
+   "automatico_ndsi"
+  ],
+  "revision_humana": false,
+  "variante": "rgb",
+  "seleccion": "val",
+  "prueba": "test"
+ },
+ "referencia": {
+  "origen": "automatico_ndsi",
+  "revision_humana": false,
+  "aviso": "Referencia automática (pseudoetiquetas por reglas NDSI del generador mensual, sin revisión humana). Las métricas miden concordancia con esas pseudoetiquetas, no verificación glaciológica independiente."
+ },
+ "seleccion": {
+  "split": "val",
+  "soporte": "observable",
+  "checkpoint": "3_ajustada/epoch100.pt",
+  "imgsz": 1024,
+  "umbral": 0.36628111720085144,
+  "umbral_f1": 0.37128111720085144,
+  "margen_numerico": 0.0050000000000000044,
+  "f1_val": 0.8662481892805408,
+  "empates_f1": 1,
+  "criterio": "checkpoint y resolución por mayor IoU de cobertura en validación (desempate: menor MAE de área); umbral operativo por máximo F1 en validación (empates → umbral mayor), menos un margen numérico que no cambia la máscara de validación",
+  "candidatos_checkpoint": 19,
+  "iou_val_min": 0.008367053662595016,
+  "iou_val_max": 0.7640545144804088
+ },
+ "entrenamiento": {
+  "nombre": "3_ajustada",
+  "modelo_base": "yolo26n-seg.pt",
+  "segundos": 574.4,
+  "dispositivo": "cuda:0",
+  "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "pico_asignado_mib": 1998,
+  "pico_reservado_mib": 2550,
+  "epocas_pedidas": 150,
+  "epocas_ejecutadas": 150,
+  "criterio_best": "fitness interno de Ultralytics sobre validación (combinación ponderada de mAP de cajas y máscaras; ver results.csv)"
+ },
+ "versiones": {
+  "python": "3.11.15",
+  "torch": "2.15.0+cu132",
+  "torchvision": "0.29.2+cu132",
+  "ultralytics": "8.4.216",
+  "cuda": "13.2",
+  "numpy": "2.4.6",
+  "onnx": "1.23.2",
+  "onnxruntime": "1.32.0",
+  "so": "Windows-10-10.0.26300-SP0",
+  "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU"
+ },
+ "metricas": "metricas.json",
+ "esquema": "1.0",
+ "tarea": "segment",
+ "clase": {
+  "id": 0,
+  "nombre": "nieve_hielo_visible"
+ },
+ "archivos": {
+  "pesos/best.pt": "65d6984adf4028f2edbad71a022492587050549c4b4ee4fa3da8c92a1c78365b",
+  "pesos/best.onnx": "f133a5faf11eac602dfb488ad2a2e091268215d65cd26860ed4dc5b1c097ae17",
+  "metricas.json": "5ddfcdcff693dd7dc9e351aeb6367468eb29e0581a0d8dcb7c3b5aa9ebc20a61",
+  "roc_test.png": "87f64133a6313d2f919cfd87c3f861a18bd984a4e577c04059792bde117f280a",
+  "roc_val.png": "349c55fe70444cd37b61b75ea85d445c5a8d30c97751dadf5c47d4b36ca52e11",
+  "metricas_test_por_escena.csv": "8f784bcbcf3106934c8e2a6695e5f2c7e2b6119248d5b9e2105fc4bbd82dbf5e"
+ },
+ "creado_utc": "2026-11-23T03:11:51Z"
+}

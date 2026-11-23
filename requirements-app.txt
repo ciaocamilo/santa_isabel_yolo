@@ -1,0 +1,10 @@
+# Servicio Streamlit en CPU (Render o local) con el backend ONNX Runtime.
+# Este perfil NO instala torch ni Ultralytics: la app carga models/<id>/pesos/best.onnx.
+# Versiones ensayadas (ver README · «Mediciones»). Python 3.11.
+streamlit==1.67.0
+numpy==2.4.6
+pillow==12.3.0
+rasterio==1.4.4
+onnxruntime==1.32.0
+opencv-python-headless==5.1.0.95
+psutil==7.2.2
